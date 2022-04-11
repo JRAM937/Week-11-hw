@@ -1,6 +1,6 @@
 ---
 title: "Functions"
-output: html_document
+output: github_document
 ---
 
 ```{r setup}
@@ -24,8 +24,8 @@ d = rnorm(10)
 Write a function to automate the calculation of the rescale:
 ```{r}
 rescale01 <- function(x) {
-  
-
+  rng <- range(df$a)
+  (x - rng[1]) / (rng[2] - rng[1])
 }
 
 rescale01(df$a)
@@ -57,11 +57,14 @@ df$d[df$d==-99]<-NA
 ```
 
 ```{r}
-fix_missing <- function() {
+fix_missing <- function(x) {
   
-  
+  x[x==-99]<-NA
+  x
   
 }
+
+fix_missing(df$a)
 ```
 
 
@@ -81,9 +84,8 @@ Now let's write a function that allows us to easily adapt our rescaling to inclu
 
 
 ```{r}
-rescale <- function(x, min =  , max = ) {
-  
-
+rescale <- function(x, min = 0 , max = 1) {
+  min + (max - min) * ((x - min(x)) / (max(x) - min(x)))
 }
 
 rescale(df$a)
@@ -98,7 +100,15 @@ rescale(df$c, max = 10)
 ## Your Turn 2
 Expand your function from 'Your Turn 1' to allow for any possible missing value type.
 ```{r}
+fix_missing <- function(x, k) {
+  
+  x[x==k]<-NA
+  x
+  
+}
 
+fix_missing(df$a, -99)
+fix_missing(df$b, -999)
 
 
 ```
