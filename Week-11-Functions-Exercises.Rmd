@@ -1,0 +1,116 @@
+---
+title: "Functions"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+
+df <- tibble::tibble(
+a = c(rnorm(9), -99),
+b = c(-999, -99, rnorm(8)),
+c = c(0, rnorm(9)),
+d = rnorm(10)
+)
+```
+
+```{r}
+(df$a <- (df$a - min(df$a)) / (max(df$a) - min(df$a)))
+(df$b <- (df$b - min(df$b)) / (max(df$b) - min(df$b)))
+(df$c <- (df$c - min(df$c)) / (max(df$c) - min(df$c)))
+(df$d <- (df$d - min(df$d)) / (max(df$d) - min(df$c)))
+```
+
+Write a function to automate the calculation of the rescale:
+```{r}
+rescale01 <- function(x) {
+  
+
+}
+
+rescale01(df$a)
+rescale01(df$b)
+rescale01(df$c)
+rescale01(df$d)
+```
+
+
+## Your Turn 1
+
+Rerun the tibble to revert back to the original data.  Write a function to replace -99 with NA, called `fix_missing()`
+
+```{r}
+df <- tibble::tibble(
+a = c(rnorm(9), -99),
+b = c(-999, -99, rnorm(8)),
+c = c(0, rnorm(9)),
+d = rnorm(10)
+)
+
+
+#Here are the repeated calculations
+df$a[df$a==-99]<-NA
+df$b[df$b==-99]<-NA
+df$c[df$c==-99]<-NA
+df$d[df$d==-99]<-NA
+
+```
+
+```{r}
+fix_missing <- function() {
+  
+  
+  
+}
+```
+
+
+
+Now let's write a function that allows us to easily adapt our rescaling to include a range (min, max) to modify the data.
+```{r}
+#Rescale to [0, 1]
+0 + (1 - 0) * ((df$a - min(df$a)) / (max(df$a) - min(df$a)))
+
+# Rescale to [-1, 1]
+-1 + (1 - -1) * ((df$b - min(df$b)) / (max(df$b) - min(df$b)))
+
+# Rescale to [0, 10]
+0 + (10 - 0) * ((df$c - min(df$c)) / (max(df$c) - min(df$c)))
+
+```
+
+
+```{r}
+rescale <- function(x, min =  , max = ) {
+  
+
+}
+
+rescale(df$a)
+rescale(df$b, min = -1, max = 1)
+rescale(df$c, max = 10)
+
+```
+
+
+
+
+## Your Turn 2
+Expand your function from 'Your Turn 1' to allow for any possible missing value type.
+```{r}
+
+
+
+```
+
+
+
+# Take Aways
+
+To write a function, 
+
+1. Write code that solves the problem for a real object  
+2. Wrap the code in `function(){}` to save it  
+3. Add the name of the real object as the function argument 
+
+This sequence will help prevent bugs in your code (and reduce the time you spend correcting bugs). 
